@@ -1,0 +1,25 @@
+name: Unzip Files
+
+on:
+  push:
+    paths:
+      - '**.zip' # Trigger when a .zip file is pushed
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mental-Health-Companion
+        uses: actions/Mental-Health-Companion@v3
+
+      - name: Unzip file
+        run: |
+          unzip AITherapyCompanion.zip -d unzipped-files/
+
+      - name: Commit unzipped files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add unzipped-files/
+          git commit -m "Automatically unzipped files"
+          git push
